@@ -1,27 +1,23 @@
-import cgi
-from google.appengine.api import users
 import webapp2
+import views
+import services
+import os
 
-import ConfigParser, os
-config = ConfigParser.ConfigParser()
-config.read('settings.cfg')
-services = config.items('services')
+debug = os.environ.get('SERVER_SOFTWARE', '').startswith('Dev')
 
-# import services
-from defaultpage import DefaultPage
-from salesforce import SalesForceAuth
-from aws import AWSAuth
+web_settings = {'debug': debug }
 
 
 # define service urls and create app
 app = webapp2.WSGIApplication([
-    ('/', DefaultPage),
-    ('/salesforce', SalesForceAuth),
-    ('/aws', AWSAuth)
-], debug=True)
+	('/', views.DefaultPage),
+	('/salesforce', services.SalesForceAuth),
+	('/salesforce/adconnect', services.SalesForceAuth),
+	('/aws', services.AWSAuth)
+], debug=debug, config=web_settings)
 
 def main():
-    app.run()
+	app.run()
 
 if __name__ == "__main__":
-    main()
+	main()

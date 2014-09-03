@@ -2,8 +2,8 @@
 # https://na1.salesforce.com/help/pdfs/en/salesforce_single_sign_on.pdf
 # Additional resources:
 #  https://help.salesforce.com/apex/HTViewHelpDoc?id=sso_delauthentication_configuring.htm&language=en
-# view and edit the sandbox in salesforce to test
-# https://pingone.edointeractive.com/ADconnect/delauth.aspx
+#  view and edit the sandbox in salesforce to test
+
 from google.appengine.api import users
 import ConfigParser
 import webapp2
@@ -20,7 +20,6 @@ class SalesForceAuth(webapp2.RequestHandler):
 		if (user):
 			logging.info('Logging in ' + user.email())
 			# Assign token to user.
-			# user.token = 'AoaKAdFNSMUPemkCvwW2EtxOZd32idjd'
 			# self.redirect(config.get('salesforce','login_url') + "?un=" + user.email() + "&pw=" + user.token)
 		self.redirect(config.get('salesforce','login_url'))
 
